@@ -33,7 +33,7 @@ var getPostsCollection = function(db){
 
 var dbConnect = function()
 { 
-   return MangoClient.connect("mongodb://127.0.0.1:27017/blog");
+   return MangoClient.connect("mongodb://blog-posts:mTtYNsHLRcNzaJuLkS0lMARrz4K1GgpTTZBpRGT9xNTF7q7HR7HA7vCHd0SlqhdKnVDAaVs7o2DOrXngOx5U0A==@blog-posts.documents.azure.com:10250/blog?ssl=true");
  
 }
 
