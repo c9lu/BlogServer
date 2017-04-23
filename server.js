@@ -1,27 +1,30 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
- 
 var http = require('http')
 
-
 var app = express();
+var server = http.createServer(app);
 
 var mongoapi = require('./mongo.api.js');
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 4000);
 
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader('Content-Type', 'application/json');
+  next();
 });
 
 
-app.get('/hi', function(req, res) {
-// res.render('index.html')
-  res.send('{"a": "Hello World"}')
+app.listen(process.env.PORT||5000, function() {
+  console.log('listening on 5000')
+
+  
 });
+
+
+
+
 app.get('/', function(req, res){
 
   mongoapi.getAllPosts().then
@@ -45,6 +48,37 @@ app.get('/Posts/:id', function(request, response){
     );
 }
 );
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+
+app.get('/MPosts/:id', function(request, response){
+ 
+ 
+   mongoapi.getPostsByIds(request.params.id).then(
+      function(result){
+          console.log(JSON.stringify(result));
+        response.send(JSON.stringify(result));
+
+      }
+
+   );
+});
+app.get('/category/:id', function(request, response){
+  console.log("category"+ request.params.id)
+  mongoapi.getPostsByCategory(request.params.id).then(
+
+    
+          function(result){
+              console.log(JSON.stringify(result));
+              response.send(JSON.stringify(result));
+
+          }
+
+      
+
+  );
+});
+
+
+app.get('/test', function(req, res) {
+
+  res.send('{"a": "Hello World"}')
 });
