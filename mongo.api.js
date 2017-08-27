@@ -17,7 +17,8 @@ var dbConnect = function()
 { 
 
  
-  
+      // return MangoClient.connect("mongodb://127.0.0.1:27017/blog")
+ 
    return MangoClient.connect("mongodb://blog-posts:mTtYNsHLRcNzaJuLkS0lMARrz4K1GgpTTZBpRGT9xNTF7q7HR7HA7vCHd0SlqhdKnVDAaVs7o2DOrXngOx5U0A==@blog-posts.documents.azure.com:10250/blog?ssl=true")
      .then( function(_Db){ 
 
@@ -59,7 +60,7 @@ exports.getAllPosts = function(){
 
 exports.getPostsByCategory = function(_category){
     console.log(_category);
-   
+   // alert(_category);
     return dbConnect().then(
         function(db){
             try{
@@ -120,10 +121,10 @@ exports.getCommentsById = function(_id){
     return dbConnect().then(function(db){
           
                return db.collection('posts').findOne({id:parseInt(_id)},{postcomments:1});
-         
+       
             });
 
-    
+   
 
 }
 
@@ -137,8 +138,7 @@ exports.getPostsByIds = function(postsStr){
     console.log(postids);
     return dbConnect().then(
         function(db){
-               
-                 try{
+               try{
                     var dt= db.collection('posts').find({id:{$in: postids}} ).toArray();
                     console.log(dt);
                     return dt;
@@ -180,7 +180,7 @@ exports.saveComment = function(postid, comment){
    
    return dbConnect().then(
         function(db){
-               // console.log(comment.content);
+             
                return new Promise(db.collection('posts').update({id:parseInt(postid)},{$push:{postcomments: comment}
                 })).catch(function(err){
 
