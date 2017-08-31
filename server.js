@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(bodyParser.json()); // support json encoded bodies
+//app.use(bodyParser.json()); // support json encoded bodies
 //app.use(bodyParser.urlencoded({extended:true}));
 
 app.listen(process.env.PORT||4000, function() {
