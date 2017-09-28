@@ -1,6 +1,6 @@
 Sample URLs for the API:
 
-detail about individual post:http://blogserviceapi.azurewebsites.net/posts/1
+detail about individual post:http://blogserviceapi.azurewebsites.net/posts/10
 
 filter posts by category: http://blogserviceapi.azurewebsites.net/category/programming/
 
